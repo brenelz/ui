@@ -1,14 +1,14 @@
 # Solid expert: knowledge
 
-What the Solid expert knows. Part 1 is Solid 2 itself, part 2 is how `@ui-sdk/solid` is built, part 3 is the checklist a review walks. Pinned to what the repo installs: `solid-js` 2.0.0-rc.14 with `@solidjs/web` and `@solidjs/signals` (peer range `>=2.0.0-rc.14 <3`). Solid 2 isn't final: when an rc changes an API, update this file.
+What the Solid expert knows. Part 1 is Solid 2 itself, part 2 is how `@ui-sdk/solid` is built, part 3 is the checklist a review walks. Pinned to what the repo installs: `solid-js` 2.0.0-rc.21 with `@solidjs/web` and `@solidjs/signals` (peer range `>=2.0.0-rc.14 <3`). Solid 2 isn't final: when an rc changes an API, update this file.
 
-Last checked: 2026-10-28, against `node_modules/solid-js` 2.0.0-rc.14 (exports and `.d.ts` JSDoc read; Solid 2's own docs are thin, so the types are the source).
+Last checked: 2026-11-13, against `node_modules/solid-js` 2.0.0-rc.21 (exports and `.d.ts` JSDoc read; Solid 2's own docs are thin, so the types are the source).
 
 ## 1. Solid 2, as its types and docs write it
 
 Solid 1 habits are the main thing to catch. These changed:
 
-| Solid 1                    | Solid 2 (rc.14)                                                                                                                                                                                 |
+| Solid 1                    | Solid 2 (rc.21)                                                                                                                                                                                 |
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mergeProps`, `splitProps` | `merge(...)`, `omit(props, ...keys)` from `solid-js`                                                                                                                                            |
 | `onMount`                  | `onSettled(fn)`, which may return a cleanup                                                                                                                                                     |
@@ -59,7 +59,7 @@ Solid 1 habits are the main thing to catch. These changed:
 - On the server, memos compute as they're created and effects don't run; `isServer` tells. Context providers render their children lazily.
 - `hydrate()` claims server elements; while hydrating, refs see server attributes and children before Solid patches them, and Solid skips text writes and never removes server attributes. Anything that reads or writes the DOM belongs after hydration (`onSettled`).
 - `isHydrating()` is exported from `solid-js`. It isn't reactive, and is meant for "render what the server did, switch in `onSettled`".
-- Solid 2 rc.14 `@solidjs/web` has built-in head management (`useHead`) and a `nonce` option (a string or `{ script, style }`) on `renderToString` and `renderToStream`, applied to its hydration script and head styles. `generateHydrationScript` and `HydrationScript` take a string nonce.
+- Solid 2 rc.21 `@solidjs/web` has built-in head management (`useHead`) and a `nonce` option (a string or `{ script, style }`) on `renderToString` and `renderToStream`, applied to its hydration script and head styles. `generateHydrationScript` and `HydrationScript` take a string nonce.
 - No released `@solidjs/start` (latest 2.2.2, checked 2026-11-09) supports Solid 2; it peers on `solid-js ^1.9.15`. Don't document SolidStart setups for `@ui-sdk/solid`.
 
 ### Diagnostics
